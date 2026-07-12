@@ -2,32 +2,7 @@
 session_start();
 require_once __DIR__ . '/includes/db.php';
 
-$error = '';
-
-if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-    $email = trim($_POST['email'] ?? '');
-    $password = $_POST['password'] ?? '';
-
-    if (!$email || !$password) {
-        $error = 'Please enter email and password.';
-    } else {
-        $stmt = mysqli_prepare($conn, 'SELECT id, full_name, password FROM users WHERE email = ?');
-        mysqli_stmt_bind_param($stmt, 's', $email);
-        mysqli_stmt_execute($stmt);
-        $result = mysqli_stmt_get_result($stmt);
-        $user = mysqli_fetch_assoc($result);
-
-        // Plain-text comparison for now (password_hash/verify is the next lesson).
-        if ($user && $password === $user['password']) {
-            $_SESSION['user_id'] = $user['id'];
-            $_SESSION['user_name'] = $user['full_name'];
-            header('Location: dashboard.php');
-            exit;
-        } else {
-            $error = 'Invalid email or password.';
-        }
-    }
-}
+//code here john paul bototo
 ?>
 <!doctype html>
 <html lang="en">

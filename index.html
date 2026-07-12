@@ -1,0 +1,128 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,initial-scale=1">
+	<title>Login & Registration</title>
+	<style>
+		:root{--bg:#f4f7fb;--card:#ffffff;--accent:#4b7bec}
+		*{box-sizing:border-box}
+		body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);margin:0;display:flex;align-items:center;justify-content:center;height:100vh}
+		.wrap{width:360px;background:var(--card);border-radius:12px;box-shadow:0 6px 24px rgba(20,30,50,.08);padding:28px}
+		h2{margin:0 0 12px;font-size:20px;color:#102a43;text-align:center}
+		.tabs{display:flex;gap:8px;margin-bottom:18px}
+		.tabs button{flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(16,42,67,.08);background:transparent;cursor:pointer}
+		.tabs button.active{background:var(--accent);color:#fff;border-color:transparent}
+		form{display:none;gap:12px;flex-direction:column}
+		form.active{display:flex}
+		.field{display:flex;flex-direction:column}
+		label{font-size:13px;color:#334e68;margin-bottom:6px}
+		input[type=text],input[type=password],input[type=email]{padding:10px 12px;border:1px solid #dbe7f0;border-radius:8px;font-size:14px}
+		.row{display:flex;gap:8px}
+		.actions{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+		.btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:0;cursor:pointer}
+		.link{background:transparent;border:0;color:var(--accent);cursor:pointer}
+		.note{font-size:12px;color:#66788a;text-align:center;margin-top:12px}
+		.error{color:#c53030;font-size:13px}
+	</style>
+</head>
+<body>
+	<div class="wrap">
+		<h2>Account</h2>
+		<div class="tabs">
+			<button id="tab-login" class="active">Login</button>
+			<button id="tab-register">Register</button>
+		</div>
+
+		<form id="form-login" class="active" novalidate>
+			<div class="field">
+				<label for="login-email">Email</label>
+				<input id="login-email" type="email" required autocomplete="username">
+			</div>
+			<div class="field">
+				<label for="login-pass">Password</label>
+				<input id="login-pass" type="password" required autocomplete="current-password">
+			</div>
+			<div class="actions">
+				<button type="submit" class="btn">Sign in</button>
+				<button type="button" class="link" id="forgot">Forgot?</button>
+			</div>
+			<div id="login-error" class="error" role="status" aria-live="polite"></div>
+		</form>
+
+		<form id="form-register" novalidate>
+			<div class="field">
+				<label for="reg-name">Full name</label>
+				<input id="reg-name" type="text" required>
+			</div>
+			<div class="field">
+				<label for="reg-email">Email</label>
+				<input id="reg-email" type="email" required autocomplete="email">
+			</div>
+			<div class="row">
+				<div class="field" style="flex:1">
+					<label for="reg-pass">Password</label>
+					<input id="reg-pass" type="password" required autocomplete="new-password">
+				</div>
+				<div class="field" style="flex:1">
+					<label for="reg-pass2">Confirm</label>
+					<input id="reg-pass2" type="password" required>
+				</div>
+			</div>
+			<div class="actions">
+				<button type="submit" class="btn">Create account</button>
+				<button type="button" class="link" id="to-login">Have account?</button>
+			</div>
+			<div id="reg-error" class="error" role="status" aria-live="polite"></div>
+		</form>
+
+		<div class="note">This is a front-end demo only. No data is sent.</div>
+	</div>
+
+	<script>
+		const tabLogin = document.getElementById('tab-login');
+		const tabRegister = document.getElementById('tab-register');
+		const formLogin = document.getElementById('form-login');
+		const formRegister = document.getElementById('form-register');
+		const toLogin = document.getElementById('to-login');
+
+		function show(which){
+			if(which==='login'){
+				tabLogin.classList.add('active');tabRegister.classList.remove('active');
+				formLogin.classList.add('active');formRegister.classList.remove('active');
+			} else {
+				tabRegister.classList.add('active');tabLogin.classList.remove('active');
+				formRegister.classList.add('active');formLogin.classList.remove('active');
+			}
+		}
+
+		tabLogin.addEventListener('click',()=>show('login'));
+		tabRegister.addEventListener('click',()=>show('register'));
+		toLogin && toLogin.addEventListener('click',()=>show('login'));
+
+		formLogin.addEventListener('submit',e=>{
+			e.preventDefault();
+			const email = document.getElementById('login-email').value.trim();
+			const pass = document.getElementById('login-pass').value;
+			const err = document.getElementById('login-error'); err.textContent='';
+			if(!email||!pass){ err.textContent='Please enter email and password.'; return }
+			// placeholder: normally send to server
+			err.style.color='green'; err.textContent='Login successful (demo)';
+		});
+
+		formRegister.addEventListener('submit',e=>{
+			e.preventDefault();
+			const name = document.getElementById('reg-name').value.trim();
+			const email = document.getElementById('reg-email').value.trim();
+			const pass = document.getElementById('reg-pass').value;
+			const pass2 = document.getElementById('reg-pass2').value;
+			const err = document.getElementById('reg-error'); err.textContent=''; err.style.color='';
+			if(!name||!email||!pass||!pass2){ err.textContent='All fields are required.'; return }
+			if(pass.length<6){ err.textContent='Password must be at least 6 characters.'; return }
+			if(pass !== pass2){ err.textContent='Passwords do not match.'; return }
+			// placeholder: normally send to server
+			err.style.color='green'; err.textContent='Account created (demo)';
+		});
+	</script>
+</body>
+</html>

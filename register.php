@@ -33,7 +33,7 @@ require_once __DIR__ . '/includes/db.php';
 					<label for="reg-pass">Password</label>
 					<input id="reg-pass" name="password" type="password" required>
 				</div>
-				<div class="field" style="flex:1">
+				<div class="field" style="flex:2">
 					<label for="reg-pass2">Confirm</label>
 					<input id="reg-pass2" name="password2" type="password" required>
 				</div>
@@ -41,8 +41,8 @@ require_once __DIR__ . '/includes/db.php';
 			<div class="actions">
 				<button type="submit" class="btn">Create account</button>
 			</div>
-			<?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
-			<?php if ($success): ?><div class="success"><?= htmlspecialchars($success) ?></div><?php endif; ?>
+			<div class="error"></div>
+			<div class="success"></div>
 		</form>
 
 		<div class="note">Data is saved to the MySQL <code>jampol.users</code> table.</div>

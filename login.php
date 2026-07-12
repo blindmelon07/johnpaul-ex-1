@@ -32,7 +32,7 @@ require_once __DIR__ . '/includes/db.php';
 			<div class="actions">
 				<button type="submit" class="btn">Sign in</button>
 			</div>
-			<?php if ($error): ?><div class="error"><?= htmlspecialchars($error) ?></div><?php endif; ?>
+		<div class="error"></div>
 		</form>
 
 		<div class="note">Checks the email/password against MySQL.</div>

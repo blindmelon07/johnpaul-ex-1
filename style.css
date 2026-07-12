@@ -1,0 +1,19 @@
+:root{--bg:#f4f7fb;--card:#ffffff;--accent:#4b7bec}
+*{box-sizing:border-box}
+body{font-family:Inter,system-ui,Segoe UI,Roboto,Arial;background:var(--bg);margin:0;display:flex;align-items:center;justify-content:center;height:100vh}
+.wrap{width:360px;background:var(--card);border-radius:12px;box-shadow:0 6px 24px rgba(20,30,50,.08);padding:28px}
+h2{margin:0 0 12px;font-size:20px;color:#102a43;text-align:center}
+.tabs{display:flex;gap:8px;margin-bottom:18px}
+.tabs a{flex:1;padding:8px 10px;border-radius:8px;border:1px solid rgba(16,42,67,.08);background:transparent;cursor:pointer;text-align:center;text-decoration:none;color:#334e68;font-size:14px}
+.tabs a.active{background:var(--accent);color:#fff;border-color:transparent}
+form{display:flex;gap:12px;flex-direction:column}
+.field{display:flex;flex-direction:column}
+label{font-size:13px;color:#334e68;margin-bottom:6px}
+input[type=text],input[type=password],input[type=email]{padding:10px 12px;border:1px solid #dbe7f0;border-radius:8px;font-size:14px}
+.row{display:flex;gap:8px}
+.actions{display:flex;align-items:center;justify-content:space-between;margin-top:6px}
+.btn{background:var(--accent);color:#fff;padding:10px 14px;border-radius:8px;border:0;cursor:pointer;font-size:14px}
+.link{background:transparent;border:0;color:var(--accent);cursor:pointer}
+.note{font-size:12px;color:#66788a;text-align:center;margin-top:12px}
+.error{color:#c53030;font-size:13px;margin-top:6px}
+.success{color:#2f855a;font-size:13px;margin-top:6px}

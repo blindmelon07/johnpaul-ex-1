@@ -1,6 +1,33 @@
 <?php
 require_once __DIR__ . '/includes/db.php';
 
+if(isset($_POST["submit"])){
+	$fullName = $_POST["full_name"];
+	$email	  = $_POST["email"];
+	$password = $_POST["password"];
+	$password2 = $_POST["password2"];
+	
+	$passwordhash = password_hash($password, PASSWORD_DEFAULT);
+	$errors = array();
+
+	if (count($errors)>0){
+		foreach ($errors as $error){
+			echo "<div class='alert alert-danger'>$error</div>";
+		}
+	} else{
+		//insert the data into database
+		$sql = "INSERT INTO users (full_name, email, password) VALUES ( ?, ?, ? )";
+		$stmt = mysqli_stmt_init($conn);
+		$prepareStmt = mysqli_stmt_prepare($stmt,$sql);
+		if ($prepareStmt){
+			mysqli_stmt_bind_param($stmt,"sss", $fullName, $email, $passwordhash);
+			mysqli_stmt_execute($stmt);
+			echo "<div class='alert alert-succes'>You are registered successfully.</div>";
+		}else{
+			die("Something went wrong");
+		}
+	}
+}
 //code here john paul bototo
 ?>
 <!doctype html>
@@ -13,13 +40,13 @@ require_once __DIR__ . '/includes/db.php';
 </head>
 <body>
 	<div class="wrap">
+
 		<h2>Account</h2>
 		<div class="tabs">
 			<a href="login.php">Login</a>
 			<a href="register.php" class="active">Register</a>
 		</div>
-
-		<form method="post" novalidate>
+		<form action="register.php" method="post">
 			<div class="field">
 				<label for="reg-name">Full name</label>
 				<input id="reg-name" name="full_name" type="text" required value="<?= htmlspecialchars($_POST['full_name'] ?? '') ?>">
@@ -39,7 +66,7 @@ require_once __DIR__ . '/includes/db.php';
 				</div>
 			</div>
 			<div class="actions">
-				<button type="submit" class="btn">Create account</button>
+				<button type="submit" name="submit" class="btn">Create account</button>
 			</div>
 			<div class="error"></div>
 			<div class="success"></div>
